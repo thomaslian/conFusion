@@ -1,0 +1,32 @@
+<div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
+  fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+
+  <div fxFlex="40">
+    <mat-card *ngIf="dish">
+      <h1>{{dish.name | uppercase}}</h1>
+      <img mat-card-image src={{dish.image}} alt={{dish.name}}>
+      <mat-card-content>{{dish.description}}</mat-card-content>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card>
+
+  </div>
+
+  <div fxFlex="40">
+    <mat-card *ngIf="dish">
+      <h1>Comments</h1>
+      <mat-list *ngFor="let comment of dish.comments">
+          <p matline>{{comment.comment}}</p>
+          <p matline>{{comment.rating}} stars</p>
+          <p matline>-- {{comment.author}} {{comment.date | date:'longDate'}}</p>
+      </mat-list>
+
+
+
+    </mat-card>
+  </div>
+
+</div>
+<script>
+
+</script>
