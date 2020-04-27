@@ -11,6 +11,7 @@ export class AboutComponent implements OnInit {
 
   leaders: Leader[];
 
+  // Make Angular know that this component depends on the LeaderService
   constructor(private leaderService: LeaderService) { }
 
   ngOnInit() {
