@@ -10,16 +10,21 @@
 <!-- 
   Login form
 
-  Novalidate = Makes HTML skip the regular validation, and gives the responsibility to Angular
-  #loginForm = Specify a variable that lets us track the state of the form
-  (ngSubmit) = When form is submitted, run the onSubmit() command. Found in the login.component.ts file
+  Novalidate - Makes HTML skip the regular validation, and gives the responsibility to Angular
+  #loginForm - Specify a variable that lets us track the state of the form
+  (ngSubmit) - When form is submitted, run the onSubmit() command. Found in the login.component.ts file
 
 -->
 <form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()">
   <mat-dialog-content>
     <p>
       <mat-form-field>
-        <!-- Username - Required -->
+        <!-- 
+          Username - Input - Required
+
+          [(ngModel)]="user.username" - Stores the username in the user class to make an object 
+          #username="ngModel" - Exports ngModel into a local variable called username. Used for FormControl
+        -->
         <input matInput placeholder="Username" type="text" 
         [(ngModel)]="user.username" name="username"
         #username="ngModel" required>
@@ -27,7 +32,7 @@
         <mat-error *ngIf="username.errors?.required">Username is required</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <!-- Password - Required -->
+        <!-- Password - Input - Required -->
         <input matInput placeholder="Password" type="password" 
         [(ngModel)]="user.password" name="password"
         #password="ngModel" required>
