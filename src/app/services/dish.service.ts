@@ -13,17 +13,26 @@ export class DishService {
   // (data gets delivered), then the result delivered by the
   // getDishes promise, would be a dish array.
   getDishes(): Promise<Dish[]> {
-    // Return the promise immediately. Only works if you have the results
-    // avilable immediately. We would have to rewrite the code if we are 
-    // fetching the data from a server
-    return Promise.resolve(DISHES);
+    // Create a new promise that will resolve after the 
+    // server returns the data
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+      setTimeout(() => resolve(DISHES), 2000)
+    }
+    );
   }
 
   getDish(id: string): Promise<Dish> {
-    return Promise.resolve(DISHES.filter(dish => dish.id === id)[0]);
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+      setTimeout(() => resolve(DISHES.filter(dish => dish.id === id)[0]), 2000);
+    });
   }
 
   getFeaturedDish(): Promise<Dish> {
-    return Promise.resolve(DISHES.filter(dish => dish.featured)[0]);
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+      setTimeout(() => resolve(DISHES.filter(dish => dish.featured)[0]), 2000);
+    });
   }
 }

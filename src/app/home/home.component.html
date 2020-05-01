@@ -6,7 +6,9 @@
   <mat-card *ngIf="dish" fxFlex>
     <!-- Mat-card Header -->
     <mat-card-header>
-      <mat-card-title><h3>{{dish.name | uppercase}}</h3></mat-card-title>
+      <mat-card-title>
+        <h3>{{dish.name | uppercase}}</h3>
+      </mat-card-title>
     </mat-card-header>
     <!-- Image -->
     <img mat-card-image src={{dish.image}} alt={{dish.name}}>
@@ -16,11 +18,24 @@
     </mat-card-content>
   </mat-card>
 
+  <!-- 
+    Progress bar 
+
+    [hidden] - If dish is hidden, show this div instead.
+    Other div will not show as long as the dish is not loaded from server
+  -->
+  <div fxFlex [hidden]="dish">
+    <mat-spinner></mat-spinner>
+    <h4>Loading... Please wait!</h4>
+  </div>
+
   <!-- PROMOTION CARD -->
   <mat-card *ngIf="promotion" fxFlex>
     <!-- Mat-card Header -->
     <mat-card-header>
-      <mat-card-title><h3>{{promotion.name | uppercase}}</h3></mat-card-title>
+      <mat-card-title>
+        <h3>{{promotion.name | uppercase}}</h3>
+      </mat-card-title>
     </mat-card-header>
     <!-- Image -->
     <img mat-card-image src={{promotion.image}} alt={{promotion.name}}>
@@ -30,11 +45,19 @@
     </mat-card-content>
   </mat-card>
 
+  <!-- Progress bar  -->
+  <div fxFlex [hidden]="promotion">
+    <mat-spinner></mat-spinner>
+    <h4>Loading... Please wait!</h4>
+  </div>
+
   <!-- LEADER CARD -->
   <mat-card *ngIf="leader" fxFlex>
     <!-- Mat-card Header -->
     <mat-card-header>
-      <mat-card-title><h3>{{leader.name | uppercase}}</h3></mat-card-title>
+      <mat-card-title>
+        <h3>{{leader.name | uppercase}}</h3>
+      </mat-card-title>
     </mat-card-header>
     <!-- Image -->
     <img mat-card-image src={{leader.image}} alt={{leader.name}}>
@@ -44,5 +67,11 @@
       <p>{{leader.description}}</p>
     </mat-card-content>
   </mat-card>
+
+  <!-- Progress bar  -->
+  <div fxFlex [hidden]="leader">
+    <mat-spinner></mat-spinner>
+    <h4>Loading... Please wait!</h4>
+  </div>
 
 </div>

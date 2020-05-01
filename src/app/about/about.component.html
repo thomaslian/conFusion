@@ -55,6 +55,7 @@
   </div>
 
 
+  <!-- Leadership overview -->
   <div fxFlex>
     <h2>Corporate Leadership</h2>
     <mat-list *ngIf="leaders">
@@ -65,5 +66,15 @@
         <div mat-line>{{leader.description}}</div>
       </mat-list-item>
     </mat-list>
+  </div>
+
+  <!-- 
+    Progress bar 
+
+    [hidden] - If leaders are hidden, show this div instead.
+    Other div will not show as long as the leaders are not loaded from server
+  -->
+  <div fxFlex [hidden]="leaders">
+    <mat-spinner></mat-spinner> <h4>Loading... Please wait!</h4>
   </div>
 </div>

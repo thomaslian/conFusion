@@ -7,7 +7,8 @@
     </div>
   </div>
 
-  <div fxFlex>
+  <!-- Dishes grid list -->
+  <div fxFlex *ngIf="dishes">
     <mat-grid-list cols="2" rowHeight="200px" >
       <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]">
         <img height="200px" matListAvatar src={{dish.image}} alt={{dish.name}}>
@@ -16,5 +17,15 @@
         </mat-grid-tile-footer>
       </mat-grid-tile>
     </mat-grid-list>
+  </div>
+
+  <!-- 
+    Progress bar 
+
+    [hidden] - If dishes are hidden, show this div instead.
+    Other div will not show as long as the dishes are not loaded from server
+  -->
+  <div fxFlex [hidden]="dishes">
+    <mat-spinner></mat-spinner> <h4>Loading... Please wait!</h4>
   </div>
 </div>
