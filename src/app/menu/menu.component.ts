@@ -16,7 +16,12 @@ export class MenuComponent implements OnInit {
   constructor(private dishService: DishService) { }
 
   ngOnInit() {
-    this.dishes = this.dishService.getDishes();
+    // Get dishes with promise
+    // The component take hold of the promise, and retrive the 
+    // results when the promise gets resolved
+    this.dishService.getDishes()
+    //1. dishes = object coming in when the promise resolves
+      .then(dishes => this.dishes = dishes);
   }
 
   onSelect(dish: Dish) {
