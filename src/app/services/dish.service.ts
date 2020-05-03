@@ -26,4 +26,12 @@ export class DishService {
   getFeaturedDish(): Observable<Dish> {
     return of(DISHES.filter(dish => dish.featured)[0]).pipe(delay(2000));
   }
+
+  getDishIds(): Observable<string[] | any> {
+    // Gets dishes array, extracts all the IDs from the array
+    // and give the id to the dish detail component (or the 
+    // component asking for it)
+    // Returns only an array of the ids
+    return of(DISHES.map(dish => dish.id))
+  }
 }
