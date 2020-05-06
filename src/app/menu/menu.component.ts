@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Dish } from '../shared/Dish';
 import { DishService } from '../services/dish.service';
 
@@ -11,9 +11,8 @@ export class MenuComponent implements OnInit {
 
   dishes: Dish[];
 
-  selectedDish: Dish;
-
-  constructor(private dishService: DishService) { }
+  constructor(private dishService: DishService, 
+    @Inject('BASEURL') private BASEURL) { }
 
   ngOnInit() {
     // Get dishes with observables
@@ -23,9 +22,4 @@ export class MenuComponent implements OnInit {
     //1. dishes = object coming in when the observable values gets emitted
       .subscribe(dishes => this.dishes = dishes);
   }
-
-  onSelect(dish: Dish) {
-    this.selectedDish = dish;
-  }
-
 }

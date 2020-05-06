@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Dish } from '../shared/Dish';
@@ -43,11 +43,14 @@ export class DishdetailComponent implements OnInit {
     constructor(private dishService: DishService,
         private route: ActivatedRoute,
         private location: Location,
-        private fb: FormBuilder) {
-        this.createForm();
+        private fb: FormBuilder,
+        @Inject('BASEURL') private BASEURL) {
+        
     }
 
     ngOnInit() {
+        this.createForm();
+
         //getDishIds are sending out an observable, so we are subscribing to that observable.
         //Subscribing dishIds variable to the observable to get the parameter which is 
         ///  a string array.

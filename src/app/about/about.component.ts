@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Leader } from '../shared/Leader';
 import { LeaderService } from '../services/leader.service';
 
@@ -12,7 +12,8 @@ export class AboutComponent implements OnInit {
   leaders: Leader[];
 
   // Make Angular know that this component depends on the LeaderService
-  constructor(private leaderService: LeaderService) { }
+  constructor(private leaderService: LeaderService,
+    @Inject('BASEURL') private BASEURL) { }
 
   ngOnInit() {
     this.leaderService.getLeaders()
