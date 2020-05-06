@@ -25,6 +25,7 @@ export class DishdetailComponent implements OnInit {
     commentForm: FormGroup;
     // Get access to template form and completly reset it
     @ViewChild('cform') commentFormDirective;
+    dishcopy: Dish;
 
     formErrors = {
         'comment': '',
@@ -60,7 +61,8 @@ export class DishdetailComponent implements OnInit {
                 errmess => this.errMess = <any>errmess);
         this.route.params
             .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-            .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id) });
+            .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id) }, 
+            errmess => this.errMess = <any>errmess);
     }
 
     // When createForm() is called, it will create the reactive form 
@@ -121,7 +123,14 @@ export class DishdetailComponent implements OnInit {
         // Add the current date to the comment object
         this.comment.date = new Date().toISOString();
         // Push the variables from the comment form
-        this.dish.comments.push(this.comment);
+        this.dishcopy.comments.push(this.comment);
+        // Send the new dish information to the server
+        this.dishService.putDish(this.dishcopy)
+            .subscribe(dish => {
+                // dish will be the new dish that will be set to this.dish and this.dishcopy
+                this.dish = dish; this.dishcopy = dish;
+            },
+            errmess => {this.dish = null; this.dishcopy = null; this.errMess = <any> errmess;});
         console.log(this.comment);
         // Reset the whole form (cleans error messages)
         this.commentFormDirective.resetForm();
