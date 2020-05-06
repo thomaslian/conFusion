@@ -10,6 +10,7 @@ import { LeaderService } from '../services/leader.service';
 export class AboutComponent implements OnInit {
 
   leaders: Leader[];
+  errMess: string;
 
   // Make Angular know that this component depends on the LeaderService
   constructor(private leaderService: LeaderService,
@@ -17,8 +18,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit() {
     this.leaderService.getLeaders()
-      .subscribe(leaders => this.leaders = leaders)
-      ;
+      .subscribe(leaders => this.leaders = leaders,
+        errmess => this.errMess = <any>errmess);
   }
-
 }

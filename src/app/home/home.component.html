@@ -24,9 +24,14 @@
     [hidden] - If dish is hidden, show this div instead.
     Other div will not show as long as the dish is not loaded from server
   -->
-  <div fxFlex [hidden]="dish">
+  <div fxFlex [hidden]="dish || dishErrMess">
     <mat-spinner></mat-spinner>
     <h4>Loading... Please wait!</h4>
+  </div>
+
+  <div fxFlex *ngIf="dishErrMess">
+    <h2>Error</h2>
+    <h4>{{dishErrMess}}</h4>
   </div>
 
   <!-- PROMOTION CARD -->
@@ -46,9 +51,14 @@
   </mat-card>
 
   <!-- Progress bar  -->
-  <div fxFlex [hidden]="promotion">
+  <div fxFlex [hidden]="promotion || promotionErrMess">
     <mat-spinner></mat-spinner>
     <h4>Loading... Please wait!</h4>
+  </div>
+
+  <div fxFlex *ngIf="promotionErrMess">
+    <h2>Error</h2>
+    <h4>{{promotionErrMess}}</h4>
   </div>
 
   <!-- LEADER CARD -->
@@ -69,9 +79,14 @@
   </mat-card>
 
   <!-- Progress bar  -->
-  <div fxFlex [hidden]="leader">
+  <div fxFlex [hidden]="leader || leaderErrMess">
     <mat-spinner></mat-spinner>
     <h4>Loading... Please wait!</h4>
+  </div>
+
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{leaderErrMess}}</h4>
   </div>
 
 </div>

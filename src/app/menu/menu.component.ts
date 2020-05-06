@@ -10,6 +10,7 @@ import { DishService } from '../services/dish.service';
 export class MenuComponent implements OnInit {
 
   dishes: Dish[];
+  errMess: string;
 
   constructor(private dishService: DishService, 
     @Inject('BASEURL') private BASEURL) { }
@@ -20,6 +21,7 @@ export class MenuComponent implements OnInit {
     // values when the observable gets emitted
     this.dishService.getDishes()
     //1. dishes = object coming in when the observable values gets emitted
-      .subscribe(dishes => this.dishes = dishes);
+      .subscribe(dishes => this.dishes = dishes,
+        errmess => this.errMess = <any>errmess);
   }
 }

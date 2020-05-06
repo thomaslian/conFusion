@@ -17,6 +17,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DishdetailComponent implements OnInit {
 
     dish: Dish;
+    errMess: string;
     comment: Comment;
     dishIds: string[];
     prev: string;
@@ -45,7 +46,7 @@ export class DishdetailComponent implements OnInit {
         private location: Location,
         private fb: FormBuilder,
         @Inject('BASEURL') private BASEURL) {
-        
+
     }
 
     ngOnInit() {
@@ -55,7 +56,8 @@ export class DishdetailComponent implements OnInit {
         //Subscribing dishIds variable to the observable to get the parameter which is 
         ///  a string array.
         this.dishService.getDishIds()
-            .subscribe(dishIds => this.dishIds = dishIds);
+            .subscribe(dishIds => this.dishIds = dishIds,
+                errmess => this.errMess = <any>errmess);
         this.route.params
             .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
             .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id) });

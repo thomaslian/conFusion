@@ -50,8 +50,8 @@
         <input matInput formControlName="author" placeholder="Name" type="text" required>
         <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
       </mat-form-field>
-        <mat-slider matInput min="1" max="5" step="1" value="5" thumbLabel tickInterval="1" formControlName="rating">
-        </mat-slider>
+      <mat-slider matInput min="1" max="5" step="1" value="5" thumbLabel tickInterval="1" formControlName="rating">
+      </mat-slider>
       <mat-form-field class="full-width">
         <textarea matInput formControlName="comment" placeholder="Your comment" rows=12 required></textarea>
         <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
@@ -67,9 +67,14 @@
     [hidden] - If dish is hidden, show this div instead.
     Other div will not show as long as the dish is not loaded from server
   -->
-  <div fxFlex [hidden]="dish">
+  <div fxFlex [hidden]="dish || errMess">
     <mat-spinner></mat-spinner>
     <h4>Loading... Please wait!</h4>
+  </div>
+
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 
 

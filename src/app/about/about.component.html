@@ -74,7 +74,12 @@
     [hidden] - If leaders are hidden, show this div instead.
     Other div will not show as long as the leaders are not loaded from server
   -->
-  <div fxFlex [hidden]="leaders">
+  <div fxFlex [hidden]="leaders || errMess">
     <mat-spinner></mat-spinner> <h4>Loading... Please wait!</h4>
+  </div>
+
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{errMess}}</h4>
   </div>
 </div>
