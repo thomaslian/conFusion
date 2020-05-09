@@ -21,28 +21,41 @@ export function flyInOut() {
             transform: 'translateX(0)'
         })),
         transition(':enter', [
-            style({transform: 'translateX(-100%)', opacity: 0}),
+            style({ transform: 'translateX(-100%)', opacity: 0 }),
             animate('500ms ease-in')
         ]),
         transition(':leave', [
-            style({transform: 'translateX(100%)', opacity: 0}),
+            style({ transform: 'translateX(100%)', opacity: 0 }),
             animate('500ms ease-out')
         ])
     ])
 }
 
-export function  expand() {
+export function expand() {
     return trigger('expand', [
         state('*', style({
             opacity: 1,
             transform: 'translateX(0)'
         })),
         transition(':enter', [
-            style({transform: 'translateY(-50%)', opacity: 0}),
+            style({ transform: 'translateY(-50%)', opacity: 0 }),
             animate('500ms ease-in', style({
                 opacity: 1,
                 transform: 'translateX(0)'
             }))
         ])
     ])
+}
+
+export function showForFiveSec() {
+    return trigger('visibility', [
+        state('shown', style({
+            opacity: 1
+        })),
+        state('hidden', style({
+            opacity: 0
+        })),
+        transition('hidden => shown', animate('0.1s')),
+        transition('shown => hidden', animate('0.1s'))
+    ]);
 }

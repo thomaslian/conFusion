@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/Feedback';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut, showForFiveSec } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +13,8 @@ import { flyInOut } from '../animations/app.animation';
     'style': 'display: block;'
   },
   animations: [
-    flyInOut()
+    flyInOut(),
+    showForFiveSec()
   ]
 })
 export class ContactComponent implements OnInit {
@@ -20,9 +22,12 @@ export class ContactComponent implements OnInit {
   // Form group module that is hosting the reactive form
   feedbackForm: FormGroup;
   feedback: Feedback;
+  returnedFeedback: Feedback;
   contactType = ContactType;
   // Get access to template form and completly reset it
   @ViewChild('fform') feedbackFormDirective;
+  errMess: string;
+  visibility = 'hidden';
 
   // Oject form errors
   formErrors = {
@@ -34,28 +39,29 @@ export class ContactComponent implements OnInit {
 
   validationMessages = {
     'firstname': {
-      'required':      'First Name is required.',
-      'minlength':     'First Name must be at least 2 characters long.',
-      'maxlength':     'FirstName cannot be more than 25 characters long.'
+      'required': 'First Name is required.',
+      'minlength': 'First Name must be at least 2 characters long.',
+      'maxlength': 'FirstName cannot be more than 25 characters long.'
     },
     'lastname': {
-      'required':      'Last Name is required.',
-      'minlength':     'Last Name must be at least 2 characters long.',
-      'maxlength':     'Last Name cannot be more than 25 characters long.'
+      'required': 'Last Name is required.',
+      'minlength': 'Last Name must be at least 2 characters long.',
+      'maxlength': 'Last Name cannot be more than 25 characters long.'
     },
     'telnum': {
-      'required':      'Tel. number is required.',
-      'pattern':       'Tel. number must contain only numbers.'
+      'required': 'Tel. number is required.',
+      'pattern': 'Tel. number must contain only numbers.'
     },
     'email': {
-      'required':      'Email is required.',
-      'email':         'Email not in valid format.'
+      'required': 'Email is required.',
+      'email': 'Email not in valid format.'
     },
   };
 
   // Constructor purpose is to help prepare the creation of a new instance of the class
   // Instance - A object in memory
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder,
+    private feedbackService: FeedbackService) {
     //Call the createForm class to build the form
     this.createForm();
   }
@@ -78,21 +84,21 @@ export class ContactComponent implements OnInit {
 
     this.feedbackForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
-      
+
     this.onValueChanged(); // (re)set form validation messages
   }
 
   onValueChanged(data?: any) {
     //If the feeback form is not created, return nothing
-    if (!this.feedbackForm) {return;}
+    if (!this.feedbackForm) { return; }
     const form = this.feedbackForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
         // clear previous error message (if any)
         this.formErrors[field] = '';
         const control = form.get(field);
-        if (control && control.dirty && !control.valid){
-          const  messages = this.validationMessages[field];
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessages[field];
           for (const key in control.errors) {
             if (control.errors.hasOwnProperty(key)) {
               this.formErrors[field] += messages[key] + ' ';
@@ -103,10 +109,27 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     // Creates a javascript object from the form that can be passed into the Feedback class
     this.feedback = this.feedbackForm.value;
+    this.feedbackService.submitFeedback(this.feedback)
+      .subscribe(feedback => {
+        this.feedback = feedback;
+        this.returnedFeedback = feedback;
+        this.visibility = 'shown';
+        setTimeout(()=> {
+          this.visibility = 'hidden';
+          this.feedback = null; 
+          this.returnedFeedback = null;
+          }, 
+          5000)
+        console.log(feedback);
+      },
+        errmess => {
+          this.feedback = null; this.errMess = <any>errmess;
+        });
     console.log(this.feedback);
+
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
@@ -116,9 +139,11 @@ export class ContactComponent implements OnInit {
       contacttype: 'None',
       message: ''
     });
+
     this.feedbackFormDirective.resetForm();
   }
-
 }
+
+
 
 
