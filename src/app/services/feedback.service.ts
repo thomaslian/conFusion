@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BASEURL } from '../shared/BASEURL';
 import { Feedback } from '../shared/Feedback';
 import { catchError } from 'rxjs/operators';
+import { Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class FeedbackService {
     private processHTTPMsgService: ProcessHTTPMsgService) { }
 
 
-    submitFeedback(feedback: Feedback){
+    submitFeedback(feedback: Feedback): Observable<Feedback> {
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/Feedback';
-import { flyInOut, showForFiveSec } from '../animations/app.animation';
+import { flyInOut, expand } from '../animations/app.animation';
 import { FeedbackService } from '../services/feedback.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { FeedbackService } from '../services/feedback.service';
   },
   animations: [
     flyInOut(),
-    showForFiveSec()
+    expand()
   ]
 })
 export class ContactComponent implements OnInit {
@@ -27,7 +27,6 @@ export class ContactComponent implements OnInit {
   // Get access to template form and completly reset it
   @ViewChild('fform') feedbackFormDirective;
   errMess: string;
-  visibility = 'hidden';
 
   // Oject form errors
   formErrors = {
@@ -116,9 +115,7 @@ export class ContactComponent implements OnInit {
       .subscribe(feedback => {
         this.feedback = feedback;
         this.returnedFeedback = feedback;
-        this.visibility = 'shown';
         setTimeout(()=> {
-          this.visibility = 'hidden';
           this.feedback = null; 
           this.returnedFeedback = null;
           }, 

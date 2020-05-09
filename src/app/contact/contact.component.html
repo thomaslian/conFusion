@@ -94,7 +94,7 @@
     </form>
   </div>
 
-  <div fxFlex fxFlexOffset="20px" class="form-size" *ngIf="returnedFeedback" [@visibility]="visibility">
+  <div fxFlex fxFlexOffset="20px" class="form-size" *ngIf="returnedFeedback" [@expand]>
     <h3>Your Submission</h3>
     <p>First Name: {{" " + returnedFeedback.firstname}}</p>
     <p>Last Name: {{" " + returnedFeedback.lastname}}</p>
