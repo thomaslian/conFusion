@@ -3,7 +3,7 @@
 
 
   <!-- DISH CARD -->
-  <mat-card *ngIf="dish" fxFlex>
+  <mat-card *ngIf="dish" fxFlex [@expand]>
     <!-- Mat-card Header -->
     <mat-card-header>
       <mat-card-title>
@@ -35,7 +35,7 @@
   </div>
 
   <!-- PROMOTION CARD -->
-  <mat-card *ngIf="promotion" fxFlex>
+  <mat-card *ngIf="promotion" fxFlex [@expand]>
     <!-- Mat-card Header -->
     <mat-card-header>
       <mat-card-title>
@@ -62,7 +62,7 @@
   </div>
 
   <!-- LEADER CARD -->
-  <mat-card *ngIf="leader" fxFlex>
+  <mat-card *ngIf="leader" fxFlex  [@expand]>
     <!-- Mat-card Header -->
     <mat-card-header>
       <mat-card-title>

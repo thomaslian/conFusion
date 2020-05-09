@@ -35,7 +35,7 @@ export class DishService {
   }
 
   // Returns an array with all the IDs from all the dishes
-  getDishIds(): Observable<string[] | any> {
+  getDishIds(): Observable<String[] | any> {
     // Gets only all the ids from the dishes in a array
     return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id)))
       .pipe(catchError(error => error));
